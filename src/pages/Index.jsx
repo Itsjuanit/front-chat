@@ -24,7 +24,7 @@ function Index() {
       <div className="flex-1 hidden md:block">
         <img
           src={chatImage}
-          alt="Sismo"
+          alt="Imagen de celular"
           className="object-cover h-full w-full"
         />
       </div>

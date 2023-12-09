@@ -6,9 +6,6 @@ import Layout from "./components/Layout";
 import Index from "./pages/Index";
 import ErrorPage from "./components/ErrorPage";
 import Chat from "./pages/Chat";
-import io from "socket.io-client";
-import axios from "axios";
-const socket = io("https://backend-react-1kcz.onrender.com");
 
 const router = createBrowserRouter([
   {

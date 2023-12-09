@@ -1,5 +1,5 @@
 // ChatName.js
-import React, { useState } from "react";
+import { useState } from "react";
 
 function ChatName({ onStartChat }) {
   const [inputValue, setInputValue] = useState("");

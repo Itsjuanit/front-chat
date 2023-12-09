@@ -24,9 +24,8 @@ function Footer() {
           <div className="mb-6 lg:mb-0 text-center lg:text-left">
             <h5 className="mb-2 font-medium uppercase">Itsjuanit</h5>
             <p className="mb-4">
-              Este sitio ha sido realizado con Vite, React, React-router-dom,
-              Node.js, Tailwindcss, Socket.io, Axios, desplegado en Vercel el
-              front y el backend en Render. Visitá{" "}
+              Este sitio ha sido realizado con Vite, React, desplegado en Vercel
+              el front y el backend en Render. Visitá{" "}
               <a
                 href="https://portfolio-itsjuanit.vercel.app/"
                 target="_blank"

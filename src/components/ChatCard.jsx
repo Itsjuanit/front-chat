@@ -6,15 +6,15 @@ const ChatCard = ({ name }) => {
   const [messages, setMessages] = useState([]);
   const [inputMessage, setInputMessage] = useState("");
   const [avatarSeeds, setAvatarSeeds] = useState({});
+  const [isModalOpen, setIsModalOpen] = useState(false);
+  const [modalMessage, setModalMessage] = useState("");
   const containerRef = useRef(null);
 
   useEffect(() => {
-    // Obtener mensajes existentes al cargar el componente
     getMessages();
   }, []);
 
   useEffect(() => {
-    // Desplazar automáticamente hacia abajo al cargar o cuando cambian los mensajes
     scrollToBottom();
   }, [messages]);
 
@@ -48,19 +48,28 @@ const ChatCard = ({ name }) => {
     const newAvatarSeeds = { ...avatarSeeds };
 
     messages.forEach((message) => {
+      // Solo generamos la semilla si no existe para ese usuario
       if (!newAvatarSeeds[message.from]) {
         newAvatarSeeds[message.from] = Math.random();
       }
     });
 
+    // Mantenemos constante la semilla del usuario actual
     if (!newAvatarSeeds[name]) {
-      newAvatarSeeds[name] = Math.random();
+      newAvatarSeeds[name] = avatarSeeds[name] || Math.random();
     }
 
     setAvatarSeeds(newAvatarSeeds);
   };
 
   const handleSendMessage = async () => {
+    // Verificar si el usuario tiene un nombre
+    if (!name) {
+      setIsModalOpen(true);
+      setModalMessage("Para enviar mensajes, primero debes cargar tu nombre.");
+      return;
+    }
+
     try {
       await axios.post("https://backend-react-1kcz.onrender.com/api/save", {
         message: inputMessage,
@@ -127,6 +136,19 @@ const ChatCard = ({ name }) => {
           Enviar
         </button>
       </div>
+      {isModalOpen && (
+        <div className="fixed top-0 left-0 w-full h-full flex items-center justify-center bg-gray-800 bg-opacity-75">
+          <div className="bg-white p-4 rounded shadow">
+            <p className="text-red-500">{modalMessage}</p>
+            <button
+              onClick={() => setIsModalOpen(false)}
+              className="mt-4 p-2 bg-[#FF5733] text-white rounded"
+            >
+              Cerrar
+            </button>
+          </div>
+        </div>
+      )}
     </div>
   );
 };
